@@ -6,7 +6,7 @@ from langchain.embeddings.huggingface import HuggingFaceEmbeddings
 from langchain.vectorstores import FAISS
 from transformers import pipeline
 from dotenv import load_dotenv
-
+import gradio as gr
 # Load environment variables
 load_dotenv()
 HF_TOKEN = os.getenv("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")
@@ -74,3 +74,13 @@ if uploaded_files:
         retrieved_docs = retrieve_documents(query, index)
         answer = generate_response(query, retrieved_docs)
         st.write("✅ AI Answer: ", answer)
+
+
+def answer_question(query):
+    retrieved_docs = index.similarity_search(query, k=3)
+    context = "\n".join([doc.page_content for doc in retrieved_docs])
+    answer = qa_pipeline({'question': query, 'context': context})['answer']
+    return answer
+
+interface = gr.Interface(fn=answer_question, inputs="text", outputs="text", title="AI-Powered Q&A System")
+interface.launch()
