@@ -23,14 +23,19 @@ def load_documents(directory):
     documents = []
     for filename in os.listdir(directory):
         file_path = os.path.join(directory, filename)
-        if filename.endswith(".txt"):
+
+        # Skip non-text files like requirements.txt
+        if filename.endswith(".txt") and filename != "requirements.txt":
             loader = TextLoader(file_path)
         elif filename.endswith(".pdf"):
             loader = PyPDFLoader(file_path)
         else:
-            continue
+            continue  # Skip invalid files
+
         documents.extend(loader.load())
+
     return documents
+
 
 # Create embeddings index
 def create_embedding_index(documents):
