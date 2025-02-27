@@ -39,6 +39,11 @@ pip install -r requirements.txt
 ```bash
 streamlit run app.py
 ```
+This will launch the interactive Q&A interface in your web browser.
+
+🔗 Live Demo
+
+Check out the live demo here: [AI Q&A System](https://appsystem-wtfdign5j67tkzs5aqx6t8.streamlit.app/)
 This will launch the **interactive Q&A interface** in your web browser.
 
 ## 🔍 How It Works
